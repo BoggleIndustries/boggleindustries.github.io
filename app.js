@@ -1,19 +1,32 @@
-<html>
-    <head>
-        <meta charset="utf8">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <h1>2nd EU referendum breakdown</h1>
-        <p>Just who exactly is making this petition grow large?</p>
-        <p>Well looking at the data only <span id="num"></span> of signees are from Great Britain.</p>
-        <small> Data source: <a href="https://petition.parliament.uk/petitions/131215.json">https://petition.parliament.uk/petitions/131215.json</a></small>
-    
-        <canvas id="pie" height="1000px"></canvas>
+jQuery.getJSON('https://petition.parliament.uk/petitions/131215.json',
+function (DATA) {
+    var ctx = document.getElementById('pie').getContext('2d');
 
-        <script src="chart.js"></script>
-        <script src="jquery.js"></script>
-        <script src="data.js"></script>
-        <script src="app.js"></script>
-    </body>
-</html>
+    var countries = DATA.data.attributes.signatures_by_country,
+        organised = {
+            labels: [],
+            datasets: [{
+                data:[],
+                backgroundColor: [],
+                hoverBackgroundColor: []
+            }]
+        };
+
+    countries.forEach(function (ctr) {
+        if (ctr.name != 'United Kingdom') {
+            organised.labels.push(ctr.name + ' (' + ctr.signature_count +')');
+            organised.datasets[0].data.push(ctr.signature_count);
+            organised.datasets[0].backgroundColor.push(rCol());
+            organised.datasets[0].hoverBackgroundColor.push(rCol());
+        }
+    });
+
+    function rCol () {
+        return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    }
+
+    var myPieChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: organised
+    });
+});
