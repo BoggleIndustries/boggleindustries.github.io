@@ -13,12 +13,11 @@ function (DATA) {
         };
 
     countries.forEach(function (ctr) {
-        if (ctr.name != 'United Kingdom') {
-            organised.labels.push(ctr.name + ' (' + ctr.signature_count +')');
-            organised.datasets[0].data.push(ctr.signature_count);
-            organised.datasets[0].backgroundColor.push(rCol());
-            organised.datasets[0].hoverBackgroundColor.push(rCol());
-        } else {
+        organised.labels.push(ctr.name + ' (' + ctr.signature_count +')');
+        organised.datasets[0].data.push(ctr.signature_count);
+        organised.datasets[0].backgroundColor.push(rCol());
+        organised.datasets[0].hoverBackgroundColor.push(rCol());
+        if (ctr.name = 'United Kingdom') {
             jQuery('#num').text(ctr.signature_count);
         }
     });
