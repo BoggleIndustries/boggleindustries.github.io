@@ -17,7 +17,7 @@ function (DATA) {
         organised.datasets[0].data.push(ctr.signature_count);
         organised.datasets[0].backgroundColor.push(rCol());
         organised.datasets[0].hoverBackgroundColor.push(rCol());
-        if (ctr.name = 'United Kingdom') {
+        if (ctr.name == 'United Kingdom') {
             jQuery('#num').text(ctr.signature_count);
         }
     });
